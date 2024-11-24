@@ -1,15 +1,28 @@
 .explore-hero-section{
-    height: 50lvh;
+    height: 70lvh;
     width: 80%;
     background-color: #1D1D2D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
 }
 
 .explore-section{
-    border-top: 2px solid black;
     width: 90%;
+    margin-top: 4rem;
 }
 
 .explore-game:hover{
-    scale: 1.2;
-    transition: all .5s ease-in-out;
+    scale: 1.08;
+    transition: all .3s ease-in-out;
+}
+
+.explore-game-loading{
+    width: 15rem;
+    height: 14rem;
+}
+
+img:hover{
+    cursor: pointer;
 }

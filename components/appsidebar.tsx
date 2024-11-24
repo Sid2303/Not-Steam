@@ -33,7 +33,7 @@ import {
         url: "/search",
     },{
         title:"Chart",
-        url:"/chart",
+        url:"/library",
     }
 ]
 
