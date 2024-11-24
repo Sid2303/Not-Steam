@@ -33,9 +33,11 @@ export default function RootLayout({
       >
         <Navbar />
         <SidebarProvider>
+          
           <AppSidebar />
+          <SidebarTrigger />
           <main>
-            <SidebarTrigger />
+            
           </main>
           {children}
         </SidebarProvider>

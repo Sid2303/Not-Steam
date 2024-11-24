@@ -1,0 +1,15 @@
+.explore-hero-section{
+    height: 50lvh;
+    width: 80%;
+    background-color: #1D1D2D;
+}
+
+.explore-section{
+    border-top: 2px solid black;
+    width: 90%;
+}
+
+.explore-game:hover{
+    scale: 1.2;
+    transition: all .5s ease-in-out;
+}

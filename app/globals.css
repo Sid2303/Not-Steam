@@ -8,6 +8,10 @@
   padding: 0;
 }
 
+body{
+  background-color: #1D1D2D;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
