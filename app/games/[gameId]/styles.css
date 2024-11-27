@@ -1,0 +1,17 @@
+.basic-info{
+    display: flex;
+    justify-content: space-around;
+    gap: 3rem;
+}
+
+.game-image{
+    width: 30rem;
+}
+
+.game-image img{
+}
+
+.game-information{
+    width: 60%;
+    margin-right: 4rem;
+}

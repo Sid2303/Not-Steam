@@ -101,13 +101,16 @@ const Explore = () => {
                 <p className="error-message">{error}</p>
             ) : (
                 <div className="explore-games grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {games.map((game) => (
-                    <div key={game.id} className="explore-game p-4 rounded-md">
-                        <img src={game.thumbnail} alt={game.title} className="w-full h-40 object-cover" />
-                        <h3 className="mt-2 text-lg font-semibold">{game.title}</h3>
-                        <p className="text-sm text-gray-500">{game.platform}</p>
-                    </div>
-                ))}
+                    {games.map((game) => (
+                        <a href={`games/${game.id}`} key={game.id}>
+                            <div className="explore-game p-4 rounded-md">
+                                <img src={game.thumbnail} alt={game.title} className="w-full h-40 object-cover" />
+                                <h3 className="mt-2 text-lg font-semibold">{game.title}</h3>
+                                <p className="text-sm text-gray-500">{game.platform}</p>
+                                <p>{game.id}</p>
+                            </div>
+                        </a>
+                    ))}
                 </div>
             )}
             </div>
