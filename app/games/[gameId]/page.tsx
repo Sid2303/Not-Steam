@@ -92,7 +92,7 @@ export default function GameId({ params }: Props) {
                 </div>
 
                 <div className="minimum-requirements">
-                    <h1 className="font-bold text-3xl mt-8">Minimum Requirements</h1>
+                    <h1 className="font-bold text-3xl mt-8">System Requirements</h1>
                     <ul className="mt-4 space-y-2">
                         <li>
                             <strong>Operating System:</strong> {gameRequirements.os}

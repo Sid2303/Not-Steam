@@ -107,7 +107,6 @@ const Explore = () => {
                                 <img src={game.thumbnail} alt={game.title} className="w-full h-40 object-cover" />
                                 <h3 className="mt-2 text-lg font-semibold">{game.title}</h3>
                                 <p className="text-sm text-gray-500">{game.platform}</p>
-                                <p>{game.id}</p>
                             </div>
                         </a>
                     ))}
