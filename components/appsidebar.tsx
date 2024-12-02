@@ -32,8 +32,8 @@ import {
         title: "Search",
         url: "/search",
     },{
-        title:"Chart",
-        url:"/library",
+        title:"Reviews",
+        url:"/reviews",
     }
 ]
 

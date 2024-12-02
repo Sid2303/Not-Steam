@@ -15,3 +15,7 @@
     width: 60%;
     margin-right: 4rem;
 }
+
+.review-button{
+    z-index: 2;
+}

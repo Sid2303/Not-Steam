@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css"
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation";
 
 interface Props {
   params: Promise<{ gameId: string }>; // Updated: params is now a Promise
@@ -12,6 +14,11 @@ export default function GameId({ params }: Props) {
     const [gameId, setGameId] = useState<string>("1");
     const [game, setGame] = useState<any>({});
     const [gameRequirements, setGameRequirements] = useState<any>({});
+    const router = useRouter();
+
+    const handleClick = () => {
+        router.push(`/games/${gameId}/reviewId`);
+    };
 
     useEffect(() => {
         async function unwrapParams() {
@@ -111,6 +118,7 @@ export default function GameId({ params }: Props) {
                         </li>
                     </ul>
                 </div>
+                    <Button variant="outline" className="review-button h-20 w-[15rem] mt-11 text-lg" onClick={handleClick}>Add Review</Button>
             </div>
         </div>
     );
