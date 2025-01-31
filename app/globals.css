@@ -9,7 +9,7 @@
 }
 
 body{
-  background-color: #1D1D2D;
+  background-color: #111827;
 }
 
 @layer base {
@@ -91,4 +91,19 @@ body{
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.hero-section{
+  height: 35rem;
+  gap: 2.5rem;
+  background-image: url('https://img.freepik.com/free-vector/space-illustration-night-alien-fantasy-landscape_33099-1873.jpg?t=st=1736934584~exp=1736938184~hmac=c3d71a973956e60060224aec924ae9fc6b6bc8b7b4896d8fdac78a65de36999b&w=1380');
+  /* opacity: .8; */
+  border-radius: 15px;
+  margin-top: 2rem;
+}
+
+.home{
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }

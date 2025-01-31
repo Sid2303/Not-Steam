@@ -1,0 +1,5 @@
+.game-card:hover{
+    scale: 1.05;
+    transition: ease-in-out ;
+    transition-duration: .3s;
+}

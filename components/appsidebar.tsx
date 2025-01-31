@@ -1,7 +1,11 @@
+"use client"
+
+import { useRouter } from "next/navigation";
 
 import {
     Sidebar,
     SidebarContent,
+    SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
@@ -9,6 +13,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     } from "@/components/ui/sidebar"
+
+import { useEffect, useState } from "react";
 
     // Menu items.
     const items = [
@@ -37,7 +43,26 @@ import {
     }
 ]
 
+
 export function AppSidebar() {
+    const router = useRouter()
+    const [loggedIn,setLoggedIn] = useState(false);
+
+    useEffect(()=>{
+        isLoggedIn()
+    },[])
+
+    const logOut = ()=>{
+        localStorage.removeItem('userId')
+        setLoggedIn(false)
+    }
+
+    const isLoggedIn = ()=>{
+        if(localStorage.getItem('userId')){
+            setLoggedIn(true);
+        }
+    }
+
     return (
         <Sidebar>
         <SidebarContent>
@@ -58,6 +83,23 @@ export function AppSidebar() {
             </SidebarGroupContent>
             </SidebarGroup>
         </SidebarContent>
+        <SidebarFooter>
+                {loggedIn ? (
+                    <SidebarMenuButton
+                    className="mb-7 text-lg font-bold"
+                    onClick={logOut}
+                >
+                    Log Out
+                </SidebarMenuButton>
+                ) : (
+                    <SidebarMenuButton
+                        className="mb-7 text-lg font-bold"
+                        onClick={() => router.push("/login")}
+                    >
+                        Login
+                    </SidebarMenuButton>
+                )}
+            </SidebarFooter>
         </Sidebar>
     )
 }

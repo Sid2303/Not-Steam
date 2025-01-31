@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -7,13 +8,13 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation";
 
 interface Props {
-  params: Promise<{ gameId: string }>; // Updated: params is now a Promise
+    params: Promise<{ gameId: string }>;
 }
 
 export default function GameId({ params }: Props) {
     const [gameId, setGameId] = useState<string>("1");
-    const [game, setGame] = useState<any>({});
-    const [gameRequirements, setGameRequirements] = useState<any>({});
+    const [game, setGame] = useState<unknown>({});
+    const [gameRequirements, setGameRequirements] = useState<unknown>({});
     const router = useRouter();
 
     const handleClick = () => {
@@ -22,7 +23,7 @@ export default function GameId({ params }: Props) {
 
     useEffect(() => {
         async function unwrapParams() {
-            const resolvedParams = await params; // Await the Promise to unwrap
+            const resolvedParams = await params;
             console.log("Hello World");
             console.log(resolvedParams.gameId);
             setGameId(resolvedParams.gameId);
@@ -48,7 +49,7 @@ export default function GameId({ params }: Props) {
         return <div>Loading...</div>; // Optional loading state while params are being resolved
     }
 
-    return (
+    return(
         <div className="w-full flex flex-col mb-10">
             <div className="game-screenshots">
                 <Carousel
@@ -118,7 +119,7 @@ export default function GameId({ params }: Props) {
                         </li>
                     </ul>
                 </div>
-                    <Button variant="outline" className="review-button h-20 w-[15rem] mt-11 text-lg" onClick={handleClick}>Add Review</Button>
+                    <Button variant="outline" className="review-button h-20 w-[15rem] mt-11 text-lg" onClick={handleClick}>Reviews</Button>
             </div>
         </div>
     );
