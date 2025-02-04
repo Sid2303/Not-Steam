@@ -60,4 +60,22 @@ app.post('/api/login', async(req,res)=>{
     }
 })
 
+app.post("/api/myreviews", async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+        if (!userId) {
+            return res.status(400).json({ error: "User ID is required" });
+        }
+
+        const myReviews = await reviewModel.find({ userId });
+
+        res.json(myReviews);
+    } catch (error) {
+        console.error("Error fetching reviews:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
 app.listen(4000)
