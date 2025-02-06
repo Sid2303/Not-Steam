@@ -21,21 +21,33 @@ export default function ReviewPage({ params }: { params: Promise<{ gameId: strin
     const [gameName, setGameName] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    // Unwrapping the params promise and setting state
+    // ✅ Unwrap `params` inside useEffect
     useEffect(() => {
-        const unwrapParams = async () => {
-            const resolvedParams = await params;
-            setGameId(resolvedParams.gameId);
-            setReviewId(resolvedParams.reviewId);
+        const fetchParams = async () => {
+            try {
+                const resolvedParams = await params;
+                console.log("Resolved Params:", resolvedParams);
+                if (!resolvedParams?.gameId || !resolvedParams?.reviewId) {
+                    setError("Invalid game or review ID.");
+                    return;
+                }
+                setGameId(resolvedParams.gameId);
+                setReviewId(resolvedParams.reviewId);
+            } catch (err) {
+                console.error("Error resolving params:", err);
+                setError("Failed to load page parameters.");
+            }
         };
 
-        unwrapParams();
-
-        // Fetch the user ID from localStorage
-        setUserId(localStorage.getItem("userId"));
+        fetchParams();
     }, [params]);
 
-    // Fetch the game details
+    // ✅ Fetch user ID from localStorage
+    useEffect(() => {
+        setUserId(localStorage.getItem("userId"));
+    }, []);
+
+    // ✅ Fetch game details from FreeToGame API
     useEffect(() => {
         if (!gameId) return;
 
@@ -59,17 +71,21 @@ export default function ReviewPage({ params }: { params: Promise<{ gameId: strin
             .finally(() => setLoading(false));
     }, [gameId]);
 
-    // Fetch all reviews for the game
+    // ✅ Fetch all reviews for the game
     const getReviews = async () => {
         try {
-            const response = await fetch("http://localhost:4000/api/reviews");
+            const response = await fetch("http://localhost:4000/api/game/reviews", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ gameId }),
+            });
+
             if (!response.ok) {
                 throw new Error("Failed to fetch reviews.");
             }
 
             const reviews: Review[] = await response.json();
-            const gameReviews = reviews.filter((r) => r.gameId === gameId);
-            setAllReviews(gameReviews);
+            setAllReviews(reviews);
         } catch (error) {
             console.error("Error fetching reviews:", error);
             setError("Failed to load reviews.");
@@ -82,7 +98,7 @@ export default function ReviewPage({ params }: { params: Promise<{ gameId: strin
         }
     }, [gameId]);
 
-    // Save a new review
+    // ✅ Save a new review
     const saveReview = async () => {
         if (!userId) {
             alert("User not logged in.");
@@ -113,12 +129,12 @@ export default function ReviewPage({ params }: { params: Promise<{ gameId: strin
         }
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     if (error) {
         return <div className="text-red-500">{error}</div>;
+    }
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
     return (

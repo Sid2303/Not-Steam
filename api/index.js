@@ -77,5 +77,17 @@ app.post("/api/myreviews", async (req, res) => {
     }
 });
 
+app.delete("/api/delete", async (req, res) => {
+    try {
+        const { gameId, _id } = req.body;
+        const response = await reviewModel.deleteOne({ gameId, _id: new mongoose.Types.ObjectId(_id) });
+        res.json({ message: "Review deleted successfully", deleted: response });
+    } catch (error) {
+        console.error("Error deleting review:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
 
 app.listen(4000)
