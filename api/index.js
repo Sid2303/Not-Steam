@@ -34,6 +34,23 @@ app.post('/api/reviews',async (req,res)=>{
     res.json(comment)
 })
 
+app.get('/api/game/reviews', async (req, res) => {
+    const { gameId } = req.query; // Get gameId from query parameters
+
+    if (!gameId) {
+        return res.status(400).json({ error: "gameId is required" });
+    }
+
+    try {
+        const allReviews = await reviewModel.find({ gameId });
+        res.json(allReviews);
+    } catch (error) {
+        res.status(500).json({ error: "Server error" });
+        console.log(error)
+    }
+});
+
+
 app.get('/api/reviews',async(req,res)=>{
     // const gameId = req.query
     const reviews = await reviewModel.find()
