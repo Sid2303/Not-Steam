@@ -105,6 +105,29 @@ app.delete("/api/delete", async (req, res) => {
     }
 });
 
+//Updateing a review
+
+app.patch('/api/game/reviews/:reviewId', async (req, res) => {
+    const { reviewId } = req.params;
+    const updates = req.body; // Only update the provided fields
+
+    try {
+        const updatedReview = await reviewModel.findByIdAndUpdate(
+            reviewId,
+            updates,
+            { new: true }
+        );
+
+        if (!updatedReview) {
+            return res.status(404).json({ error: "Review not found" });
+        }
+
+        res.json(updatedReview);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to update review" });
+        console.log(error)
+    }
+});
 
 
 app.listen(4000)

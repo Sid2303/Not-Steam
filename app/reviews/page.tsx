@@ -5,22 +5,22 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
 import "./styles.css";
 import { Button } from "@/components/ui/button";
-
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [games, setGames] = useState({}); // Store game details
+    const [games, setGames] = useState({});
+    const router = useRouter(); // ✅ Initialize Next.js router
 
     async function deleteReview(gameId, _id) {
         try {
@@ -29,16 +29,16 @@ const Reviews = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ gameId, _id })
             });
-    
+
             const data = await response.json();
-    
+
             if (!response.ok) {
                 throw new Error(data.error || "Failed to delete review");
             }
             console.log("Review deleted:", data);
             setReviews((prevReviews) => prevReviews.filter(review => review._id !== _id));
-            window.alert("Review Deleted")
-    
+            window.alert("Review Deleted");
+
         } catch (error) {
             console.error("Error deleting review:", error);
         }
@@ -48,29 +48,25 @@ const Reviews = () => {
         const fetchReviews = async () => {
             try {
                 const userId = localStorage.getItem("userId");
-        
+
                 if (!userId) {
                     console.error("No user ID found in localStorage.");
                     return;
                 }
-        
+
                 const response = await fetch("http://localhost:4000/api/myreviews", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userId }),
                 });
-        
+
                 const data = await response.json();
-        
-                // console.log("Fetched Reviews:", data); // 
-        
                 setReviews(data);
-                setLoading(false)
+                setLoading(false);
             } catch (error) {
                 console.error("Error fetching reviews:", error);
             }
         };
-        
 
         fetchReviews();
     }, []);
@@ -84,7 +80,7 @@ const Reviews = () => {
                 try {
                     const response = await fetch(`https://www.freetogame.com/api/game?id=${review.gameId}`);
                     const data = await response.json();
-                    gameData[review.gameId] = data; // Store game details using gameId as key
+                    gameData[review.gameId] = data;
                 } catch (error) {
                     console.error(`Error fetching game details for ${review.gameId}:`, error);
                 }
@@ -104,13 +100,10 @@ const Reviews = () => {
             ) : reviews.length > 0 ? (
                 <div className="grid grid-cols-4 gap-4">
                     {reviews.map((review, index) => {
-                        const game = games[review.gameId]; // Get game details
+                        const game = games[review.gameId];
 
                         return (
-                            <div
-                                key={index}
-                                className="border rounded p-4 shadow-md flex flex-col items-center game-card"
-                            >
+                            <div key={index} className="border rounded p-4 shadow-md flex flex-col items-center game-card">
                                 {game ? (
                                     <>
                                         <img src={game.thumbnail} alt={game.title} className="w-full h-40 object-cover rounded-md" />
@@ -122,21 +115,26 @@ const Reviews = () => {
 
                                 <p className="text-yellow-500 font-bold mt-4">Rating: {review.rating}/5</p>
                                 <p className="mt-2 text-white">{review.review}</p>
+
                                 <AlertDialog>
                                     <AlertDialogTrigger className="bg-black mt-2 w-32 h-10">Change</AlertDialogTrigger>
                                     <AlertDialogContent>
                                         <AlertDialogHeader>
-                                        <AlertDialogTitle>Edit or delete?</AlertDialogTitle>
+                                            <AlertDialogTitle>Edit or delete?</AlertDialogTitle>
                                         </AlertDialogHeader>
                                         <AlertDialogFooter>
-                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction>Edit</AlertDialogAction>
-                                        <Button variant="destructive" onClick={() => deleteReview(review.gameId, review._id)}>
-                                            Delete
-                                        </Button>
+                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction
+                                                onClick={() => router.push(`/reviews/${review._id}?gameId=${review.gameId}`)}
+                                            >
+                                                Edit
+                                            </AlertDialogAction>
+                                            <Button variant="destructive" onClick={() => deleteReview(review.gameId, review._id)}>
+                                                Delete
+                                            </Button>
                                         </AlertDialogFooter>
                                     </AlertDialogContent>
-                                    </AlertDialog>
+                                </AlertDialog>
                             </div>
                         );
                     })}
