@@ -50,8 +50,8 @@ const Explore = () => {
     
 
     return (
-        <div className="flex flex-col w-full content-center items-center">
-            <div className="explore-hero-section">
+        <div className="flex flex-col w-full content-center items-center mt-10">
+            <div className="explore-hero-section mb-15">
                 <Carousel opts={{
                     align: "start",
                     loop: true,

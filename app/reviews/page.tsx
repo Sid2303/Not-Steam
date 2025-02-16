@@ -19,8 +19,9 @@ import { Button } from "@/components/ui/button";
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); // New state to handle errors
     const [games, setGames] = useState({});
-    const router = useRouter(); // ✅ Initialize Next.js router
+    const router = useRouter();
 
     async function deleteReview(gameId, _id) {
         try {
@@ -35,6 +36,7 @@ const Reviews = () => {
             if (!response.ok) {
                 throw new Error(data.error || "Failed to delete review");
             }
+
             console.log("Review deleted:", data);
             setReviews((prevReviews) => prevReviews.filter(review => review._id !== _id));
             window.alert("Review Deleted");
@@ -51,6 +53,8 @@ const Reviews = () => {
 
                 if (!userId) {
                     console.error("No user ID found in localStorage.");
+                    setError("No user ID found.");
+                    setLoading(false);
                     return;
                 }
 
@@ -60,11 +64,20 @@ const Reviews = () => {
                     body: JSON.stringify({ userId }),
                 });
 
-                const data = await response.json();
-                setReviews(data);
+                if (response.status === 404) {
+                    setReviews([]); // No reviews found
+                } else if (!response.ok) {
+                    throw new Error("Failed to fetch reviews");
+                } else {
+                    const data = await response.json();
+                    setReviews(data);
+                }
+                
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching reviews:", error);
+                setError("Failed to load reviews");
+                setLoading(false);
             }
         };
 
@@ -97,6 +110,8 @@ const Reviews = () => {
             <h1 className="text-2xl font-bold mb-6">All Reviews</h1>
             {loading ? (
                 <div className="text-center">Loading reviews...</div>
+            ) : error ? (
+                <p className="text-center text-red-500">{error}</p>
             ) : reviews.length > 0 ? (
                 <div className="grid grid-cols-4 gap-4">
                     {reviews.map((review, index) => {

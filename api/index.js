@@ -64,6 +64,8 @@ app.post('/api/register',async(req,res)=>{
     res.json(userProfile)
 })
 
+
+//Login route
 app.post('/api/login', async(req,res)=>{
     const {email,password} = req.body
     const user = await userModel.findOne({email})
@@ -77,6 +79,8 @@ app.post('/api/login', async(req,res)=>{
     }
 })
 
+
+//Finding the users given reviews
 app.post("/api/myreviews", async (req, res) => {
     try {
         const { userId } = req.body;
@@ -87,12 +91,19 @@ app.post("/api/myreviews", async (req, res) => {
 
         const myReviews = await reviewModel.find({ userId });
 
-        res.json(myReviews);
+        if (myReviews.length === 0) {
+            return res.status(404).json({ error: "No reviews found for this user." });
+        }
+
+        res.status(200).json(myReviews);
     } catch (error) {
         console.error("Error fetching reviews:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+
+//Deleting a review
 
 app.delete("/api/delete", async (req, res) => {
     try {
