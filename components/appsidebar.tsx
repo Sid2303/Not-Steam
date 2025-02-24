@@ -64,14 +64,14 @@ export function AppSidebar() {
     }
 
     return (
-        <Sidebar>
-        <SidebarContent>
+        <Sidebar className="h-full text-white sidebar-gradient" variant="sidebar">
+            <SidebarContent className="h-full text-white sidebar-gradient">
             <SidebarGroup>
-            <SidebarGroupLabel className="text-xl mb-8 mt-2">Not Steam</SidebarGroupLabel>
-            <SidebarGroupContent>
+            <SidebarGroupLabel className="text-4xl mb-8 mt-12 text-white">Critic XP</SidebarGroupLabel>
+            <SidebarGroupContent className="mt-20">
                 <SidebarMenu>
                 {items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem key={item.title} className="ml-3">
                     <SidebarMenuButton asChild className="text-lg font-semibold">
                         <a href={item.url}>
                         <span>{item.title}</span>
@@ -83,23 +83,23 @@ export function AppSidebar() {
             </SidebarGroupContent>
             </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
+        <SidebarFooter className="bg-[#753983]">
                 {loggedIn ? (
                     <SidebarMenuButton
-                    className="mb-7 text-lg font-bold"
+                    className="mb-12 text-2xl font-bold"
                     onClick={logOut}
                 >
                     Log Out
                 </SidebarMenuButton>
                 ) : (
                     <SidebarMenuButton
-                        className="mb-7 text-lg font-bold"
+                        className="mb-12 text-2xl font-bold"
                         onClick={() => router.push("/login")}
                     >
                         Login
                     </SidebarMenuButton>
                 )}
-            </SidebarFooter>
+            </SidebarFooter >
         </Sidebar>
     )
 }

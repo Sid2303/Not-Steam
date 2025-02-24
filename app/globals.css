@@ -83,6 +83,9 @@ body{
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+.sidebar-gradient {
+  background: linear-gradient(0deg, rgba(119,57,132,1) 0%, rgba(33,16,35,1) 100%);
+}
 
 @layer base {
   * {
