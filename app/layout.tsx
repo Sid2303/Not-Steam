@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/appsidebar";
-import Navbar from "@/components/Navbar/navbar";
+import { Nico_Moji } from "next/font/google";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,6 +15,12 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+
+// const nicoMoji = Nico_Moji({
+//   weight: "400", // Adjust weight if needed
+//   subsets: ["latin"],
+//   variable: "--font-nico-moji",
+// });
 
 export const metadata: Metadata = {
   title: "Not Steam",
@@ -28,6 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >

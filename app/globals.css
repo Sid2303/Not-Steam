@@ -83,6 +83,17 @@ body{
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+@font-face {
+  font-family: "Nico Moji";
+  src: url("/fonts/NicoMoji-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "Nico Moji", sans-serif;
+}
+
 .sidebar-gradient {
   background: linear-gradient(0deg, rgba(119,57,132,1) 0%, rgba(33,16,35,1) 100%);
 }
@@ -94,19 +105,4 @@ body{
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.hero-section{
-  height: 35rem;
-  gap: 2.5rem;
-  background-image: url('https://img.freepik.com/free-vector/space-illustration-night-alien-fantasy-landscape_33099-1873.jpg?t=st=1736934584~exp=1736938184~hmac=c3d71a973956e60060224aec924ae9fc6b6bc8b7b4896d8fdac78a65de36999b&w=1380');
-  /* opacity: .8; */
-  border-radius: 15px;
-  margin-top: 2rem;
-}
-
-.home{
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
 }

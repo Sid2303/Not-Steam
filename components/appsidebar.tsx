@@ -72,7 +72,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title} className="ml-3">
-                    <SidebarMenuButton asChild className="text-lg font-semibold">
+                    <SidebarMenuButton asChild className="text-2xl mb-3 hover:bg-[#9b36b3]">
                         <a href={item.url}>
                         <span>{item.title}</span>
                         </a>
@@ -86,14 +86,14 @@ export function AppSidebar() {
         <SidebarFooter className="bg-[#753983]">
                 {loggedIn ? (
                     <SidebarMenuButton
-                    className="mb-12 text-2xl font-bold"
+                    className="mb-12 text-2xl font-bold h-10 hover:bg-[#9b36b3]"
                     onClick={logOut}
                 >
                     Log Out
                 </SidebarMenuButton>
                 ) : (
                     <SidebarMenuButton
-                        className="mb-12 text-2xl font-bold"
+                        className="mb-12 text-2xl font-bold h-10 hover:bg-[#9b36b3]"
                         onClick={() => router.push("/login")}
                     >
                         Login
