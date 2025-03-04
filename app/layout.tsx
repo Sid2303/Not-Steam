@@ -42,7 +42,7 @@ export default function RootLayout({
         <SidebarProvider>
           
           <AppSidebar />
-          <SidebarTrigger />
+          <SidebarTrigger className="lg:hidden md:hidden"/>
           <main>
             
           </main>

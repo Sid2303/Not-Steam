@@ -12,7 +12,7 @@ import {
 
 import React, { useState, useEffect } from 'react';
 
-const Explore = () => {
+const Explore = () => { 
   const [games, setGames] = useState([]); // State variable to store fetched games
   const [loading, setLoading] = useState(true); // State for loading status
   const [error, setError] = useState(""); // State for error messages

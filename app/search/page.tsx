@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import "./styles.css";
+import router from 'next/router';
 
 const Page = () => {
     const [search, setSearch] = useState("");
@@ -47,9 +48,9 @@ const Page = () => {
                     placeholder="Enter name"
                     value={search}
                     onChange={handleInputChange}
-                    className='search-bar text-black'
+                    className='search-bar text-black mr-3 ml-5'
                 />
-                <button className="btn-2" onClick={handleSearch}>
+                <button className="btn-2 bg-black p-4" onClick={handleSearch}>
                     <span className="btn-2-bg">
                         <span className="btn-2-bg-layers">
                             <span className="btn-2-bg-layer btn-2-bg-layer-1 -purple"></span>
@@ -67,15 +68,16 @@ const Page = () => {
             <div className="game-container">
                 {filteredGames.length > 0 ? (
                     filteredGames.map((game) => (
-                        <div key={game.id} className="game-card">
-                            <img src={game.thumbnail} alt={game.title} className="game-image" />
-                            <h3 className="game-title">{game.title}</h3>
-                        </div>
+                    <a key={game.id} href={`games/${game.id}`} className="game-card">
+                        <img src={game.thumbnail} alt={game.title} className="game-image" />
+                        <h3 className="game-title">{game.title}</h3>
+                    </a>
                     ))
                 ) : (
                     <p>No games found</p>
                 )}
-            </div>
+                </div>
+
         </div>
             
         </>
